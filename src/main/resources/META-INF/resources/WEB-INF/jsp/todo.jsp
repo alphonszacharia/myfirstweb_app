@@ -106,6 +106,7 @@
                     rows="5"
                     placeholder="Enter your todo..."
                     required="true"/>
+            <form:errors path="description" cssClass="error"/>
         </div>
 
         <button type="submit" class="btn">
