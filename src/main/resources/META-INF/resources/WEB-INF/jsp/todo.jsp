@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -86,20 +87,32 @@
 
     <h2>Add New Todo</h2>
 
-    <form action="add-todo" method="post">
+    <form:form action="${pageContext.request.contextPath}/add-todo"
+               method="post"
+               modelAttribute="todo">
+
+        <!-- Hidden fields -->
+        <form:hidden path="id"/>
+        <form:hidden path="username"/>
+        <form:hidden path="targetDate"/>
+        <form:hidden path="done"/>
 
         <div class="form-group">
             <label for="description">Todo Description</label>
-            <textarea id="description"
-                      name="description"
-                      rows="5"
-                      placeholder="Enter your todo..."
-                      required></textarea>
+
+            <form:textarea
+                    path="description"
+                    id="description"
+                    rows="5"
+                    placeholder="Enter your todo..."
+                    required="true"/>
         </div>
 
-        <button type="submit" class="btn">Save Todo</button>
+        <button type="submit" class="btn">
+            Save Todo
+        </button>
 
-    </form>
+    </form:form>
 
 </div>
 
