@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Todo</title>
+    <title>${action == 'add-todo' ? 'Add Todo' : 'Update Todo'}</title>
 
     <style>
         *{
@@ -78,6 +78,13 @@
         .btn:hover{
             background:#2196f3;
         }
+
+        .error{
+            color:red;
+            font-size:14px;
+            margin-top:5px;
+            display:block;
+        }
     </style>
 
 </head>
@@ -85,11 +92,12 @@
 
 <div class="card">
 
-    <h2>Add New Todo</h2>
+    <h2>${action == 'add-todo' ? 'Add New Todo' : 'Update Todo'}</h2>
 
-    <form:form action="${pageContext.request.contextPath}/add-todo"
-               method="post"
-               modelAttribute="todo">
+    <form:form
+            action="${pageContext.request.contextPath}/${action}"
+            method="post"
+            modelAttribute="todo">
 
         <!-- Hidden fields -->
         <form:hidden path="id"/>
@@ -104,13 +112,13 @@
                     path="description"
                     id="description"
                     rows="5"
-                    placeholder="Enter your todo..."
-                    required="true"/>
+                    placeholder="Enter your todo..."/>
+
             <form:errors path="description" cssClass="error"/>
         </div>
 
         <button type="submit" class="btn">
-            Save Todo
+            ${action == 'add-todo' ? 'Save Todo' : 'Update Todo'}
         </button>
 
     </form:form>
