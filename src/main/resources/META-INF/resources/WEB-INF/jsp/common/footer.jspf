@@ -1,0 +1,21 @@
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<style>
+    .footer{
+        background:#343a40;
+        color:white;
+        text-align:center;
+        padding:15px;
+        margin-top:30px;
+        font-size:14px;
+        width:100%;
+    }
+
+    .footer p{
+        margin:0;
+    }
+</style>
+
+<div class="footer">
+    <p>&copy; 2026 Todo Management System. All Rights Reserved.</p>
+</div>

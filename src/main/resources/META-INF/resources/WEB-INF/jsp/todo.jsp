@@ -14,12 +14,25 @@
             font-family:Arial, Helvetica, sans-serif;
         }
 
+        html, body{
+            height:100%;
+            margin:0;
+        }
+
         body{
-            background:linear-gradient(135deg,#4facfe,#00f2fe);
+            display:flex;
+            flex-direction:column;
             min-height:100vh;
+            background:linear-gradient(135deg,#4facfe,#00f2fe);
+        }
+
+        /* Pushes footer to the bottom */
+        .content{
+            flex:1;
             display:flex;
             justify-content:center;
             align-items:center;
+            padding:40px;
         }
 
         .card{
@@ -90,40 +103,48 @@
 </head>
 <body>
 
-<div class="card">
+    <%@ include file="common/header.jspf" %>
 
-    <h2>${action == 'add-todo' ? 'Add New Todo' : 'Update Todo'}</h2>
+    <div class="content">
 
-    <form:form
-            action="${pageContext.request.contextPath}/${action}"
-            method="post"
-            modelAttribute="todo">
+        <div class="card">
 
-        <!-- Hidden fields -->
-        <form:hidden path="id"/>
-        <form:hidden path="username"/>
-        <form:hidden path="targetDate"/>
-        <form:hidden path="done"/>
+            <h2>${action == 'add-todo' ? 'Add New Todo' : 'Update Todo'}</h2>
 
-        <div class="form-group">
-            <label for="description">Todo Description</label>
+            <form:form
+                    action="${pageContext.request.contextPath}/${action}"
+                    method="post"
+                    modelAttribute="todo">
 
-            <form:textarea
-                    path="description"
-                    id="description"
-                    rows="5"
-                    placeholder="Enter your todo..."/>
+                <!-- Hidden fields -->
+                <form:hidden path="id"/>
+                <form:hidden path="username"/>
+                <form:hidden path="targetDate"/>
+                <form:hidden path="done"/>
 
-            <form:errors path="description" cssClass="error"/>
+                <div class="form-group">
+                    <label for="description">Todo Description</label>
+
+                    <form:textarea
+                            path="description"
+                            id="description"
+                            rows="5"
+                            placeholder="Enter your todo..."/>
+
+                    <form:errors path="description" cssClass="error"/>
+                </div>
+
+                <button type="submit" class="btn">
+                    ${action == 'add-todo' ? 'Save Todo' : 'Update Todo'}
+                </button>
+
+            </form:form>
+
         </div>
 
-        <button type="submit" class="btn">
-            ${action == 'add-todo' ? 'Save Todo' : 'Update Todo'}
-        </button>
+    </div>
 
-    </form:form>
-
-</div>
+    <%@ include file="common/footer.jspf" %>
 
 </body>
 </html>

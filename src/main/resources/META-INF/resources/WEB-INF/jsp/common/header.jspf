@@ -1,0 +1,38 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<style>
+    .header{
+        background:#007bff;
+        color:white;
+        padding:15px 30px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    .header h2{
+        margin:0;
+        font-size:24px;
+    }
+
+    .nav a{
+        color:white;
+        text-decoration:none;
+        margin-left:20px;
+        font-weight:bold;
+    }
+
+    .nav a:hover{
+        text-decoration:underline;
+    }
+</style>
+
+<div class="header">
+    <h2>Todo Management</h2>
+
+    <div class="nav">
+        <a href="${pageContext.request.contextPath}/welcome">Home</a>
+        <a href="${pageContext.request.contextPath}/list-todos">Todos</a>
+        <a href="${pageContext.request.contextPath}/logout">Logout</a>
+    </div>
+</div>

@@ -14,8 +14,21 @@
             font-family:Arial, Helvetica, sans-serif;
         }
 
+        html, body{
+            height:100%;
+            margin:0;
+        }
+
         body{
+            display:flex;
+            flex-direction:column;
+            min-height:100vh;
             background:#f4f6f9;
+        }
+
+        /* This pushes the footer to the bottom */
+        .content{
+            flex:1;
             padding:40px;
         }
 
@@ -122,82 +135,88 @@
         .delete-btn:hover{
             background:#b02a37;
         }
-
     </style>
-
 </head>
+
 <body>
 
-<div class="container">
+    <%@ include file="common/header.jspf" %>
 
-    <h2>Todo List</h2>
+    <div class="content">
 
-    <div class="top-bar">
-        <a href="${pageContext.request.contextPath}/add-todo" class="btn">
-            + Add New Todo
-        </a>
+        <div class="container">
+
+            <h2>Todo List</h2>
+
+            <div class="top-bar">
+                <a href="${pageContext.request.contextPath}/add-todo" class="btn">
+                    + Add New Todo
+                </a>
+            </div>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Description</th>
+                        <th>Target Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                <c:forEach var="todo" items="${todos}">
+                    <tr>
+
+                        <td>${todo.id}</td>
+                        <td>${todo.username}</td>
+                        <td>${todo.description}</td>
+                        <td>${todo.targetDate}</td>
+
+                        <td>
+                            <c:choose>
+                                <c:when test="${todo.done}">
+                                    <span class="done">✔ Completed</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="pending">✘ Pending</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+
+                        <td>
+                            <div class="actions">
+
+                                <a href="${pageContext.request.contextPath}/update-todo?id=${todo.id}"
+                                   class="update-btn">
+                                    Update
+                                </a>
+
+                                <a href="${pageContext.request.contextPath}/delete-todo?id=${todo.id}"
+                                   class="delete-btn"
+                                   onclick="return confirm('Are you sure you want to delete this todo?');">
+                                    Delete
+                                </a>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
     </div>
 
-    <table>
-
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Description</th>
-            <th>Target Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-
-        <tbody>
-
-        <c:forEach var="todo" items="${todos}">
-            <tr>
-
-                <td>${todo.id}</td>
-                <td>${todo.username}</td>
-                <td>${todo.description}</td>
-                <td>${todo.targetDate}</td>
-
-                <td>
-                    <c:choose>
-                        <c:when test="${todo.done}">
-                            <span class="done">✔ Completed</span>
-                        </c:when>
-
-                        <c:otherwise>
-                            <span class="pending">✘ Pending</span>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-
-                <td>
-                    <div class="actions">
-
-                        <a href="${pageContext.request.contextPath}/update-todo?id=${todo.id}"
-                           class="update-btn">
-                            Update
-                        </a>
-
-                        <a href="${pageContext.request.contextPath}/delete-todo?id=${todo.id}"
-                           class="delete-btn"
-                           onclick="return confirm('Are you sure you want to delete this todo?');">
-                            Delete
-                        </a>
-
-                    </div>
-                </td>
-
-            </tr>
-        </c:forEach>
-
-        </tbody>
-
-    </table>
-
-</div>
+    <%@ include file="common/footer.jspf" %>
 
 </body>
 </html>
