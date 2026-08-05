@@ -11,7 +11,7 @@
             margin:0;
             padding:0;
             box-sizing:border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family:Arial, Helvetica, sans-serif;
         }
 
         body{
@@ -87,6 +87,42 @@
             color:red;
             font-weight:bold;
         }
+
+        .actions{
+            display:flex;
+            justify-content:center;
+            gap:10px;
+        }
+
+        .update-btn,
+        .delete-btn{
+            display:inline-block;
+            padding:8px 14px;
+            text-decoration:none;
+            border-radius:5px;
+            font-size:14px;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .update-btn{
+            background:#ffc107;
+            color:#212529;
+        }
+
+        .update-btn:hover{
+            background:#e0a800;
+        }
+
+        .delete-btn{
+            background:#dc3545;
+            color:white;
+        }
+
+        .delete-btn:hover{
+            background:#b02a37;
+        }
+
     </style>
 
 </head>
@@ -97,7 +133,7 @@
     <h2>Todo List</h2>
 
     <div class="top-bar">
-        <a href="add-todo" class="btn">
+        <a href="${pageContext.request.contextPath}/add-todo" class="btn">
             + Add New Todo
         </a>
     </div>
@@ -111,6 +147,7 @@
             <th>Description</th>
             <th>Target Date</th>
             <th>Status</th>
+            <th>Actions</th>
         </tr>
         </thead>
 
@@ -118,6 +155,7 @@
 
         <c:forEach var="todo" items="${todos}">
             <tr>
+
                 <td>${todo.id}</td>
                 <td>${todo.username}</td>
                 <td>${todo.description}</td>
@@ -125,7 +163,6 @@
 
                 <td>
                     <c:choose>
-
                         <c:when test="${todo.done}">
                             <span class="done">✔ Completed</span>
                         </c:when>
@@ -133,8 +170,24 @@
                         <c:otherwise>
                             <span class="pending">✘ Pending</span>
                         </c:otherwise>
-
                     </c:choose>
+                </td>
+
+                <td>
+                    <div class="actions">
+
+                        <a href="${pageContext.request.contextPath}/update-todo?id=${todo.id}"
+                           class="update-btn">
+                            Update
+                        </a>
+
+                        <a href="${pageContext.request.contextPath}/delete-todo?id=${todo.id}"
+                           class="delete-btn"
+                           onclick="return confirm('Are you sure you want to delete this todo?');">
+                            Delete
+                        </a>
+
+                    </div>
                 </td>
 
             </tr>
