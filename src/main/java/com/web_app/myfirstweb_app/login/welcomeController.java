@@ -1,4 +1,6 @@
 package com.web_app.myfirstweb_app.login;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +14,12 @@ public class welcomeController {
 
         @RequestMapping(value = "/",method = RequestMethod.GET)
         public String sayHelloLoginJsp(ModelMap model) {
-            model.put("name","alphons");
+            model.put("name",getLoggedinUsername());
             return"welcome";
+        }
+
+        private String getLoggedinUsername(){
+            return SecurityContextHolder.getContext().getAuthentication().getName();
+
         }
 }
